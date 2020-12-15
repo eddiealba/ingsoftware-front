@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { formatDate, DatePipe, registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es';
+
 import { from } from 'rxjs';
 import { Voucher } from './voucher';
 
@@ -21,13 +24,25 @@ export class VoucherService{
     getVocuher(): Observable<Voucher[]> {
         //return of(VOUCHERS);
         return this.http.get(this.urlEndPoint).pipe(
-            map(response => response as Voucher[])
-        )
+            map(response => {
+                let vouchers =response as Voucher[];
+                return vouchers.map(voucher =>{
+                    registerLocaleData(localeES, 'es');
+                    let datePipe = new DatePipe('es');
+                    //voucher.date = datePipe.transform(voucher.date,'EEEE d, MMM yyyy');
+                    return voucher
+                });
+            }
+            )
+        );
     }
 
     create(voucher: Voucher) : Observable<any> {
         return this.http.post<any>(this.urlEndPoint, voucher, {headers: this.httpHeaders}).pipe(
             catchError(e => {
+                if(e.status==400){
+                    return throwError(e);
+                }
                 console.error(e.error.mensaje);
                 swal.fire(e.error.mensaje, e.error.error, 'error');
                 return throwError(e);
@@ -49,6 +64,10 @@ export class VoucherService{
     update(voucher: Voucher): Observable<any>{
         return this.http.put<any>(`${this.urlEndPoint}/${voucher.voucherId}`, voucher, {headers: this.httpHeaders}).pipe(
             catchError(e => {
+                if(e.status==400){
+                    return throwError(e);
+                }
+
                 console.error(e.error.mensaje);
                 swal.fire(e.error.mensaje, e.error.error, 'error');
                 return throwError(e);

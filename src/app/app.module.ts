@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 //Modules
 import { BrowserModule } from '@angular/platform-browser';
@@ -6,10 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { registerLocaleData} from '@angular/common';
+import localeES from '@angular/common/locales/es';
+registerLocaleData(localeES, 'es');
+
 //Routes
 import { APP_ROUTING } from "./app.routes";
 
 //Services
+
 
 //Components
 import { AppComponent } from './app.component';
@@ -60,7 +65,7 @@ import { FormeditComponent } from './components/voucher/listvoucher/formedit.com
     AppRoutingModule,
     APP_ROUTING
   ],
-  providers: [VoucherService],
+  providers: [VoucherService, {provide: LOCALE_ID, useValue:'es'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

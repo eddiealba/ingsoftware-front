@@ -29,7 +29,7 @@
                     <td>{{ voucher.voucherId }}</td>
                     <td>{{ voucher.orderId }}</td>
                     <td>{{ voucher.paymentId }}</td>
-                    <td>{{ voucher.date }}</td>                        
+                    <td>{{ voucher.date | date:"EEEE d, MMM yyyy"}}</td>                        
                     <td>{{ voucher.total }}</td>
                     <td>
                         <button type="button" name="editar" [routerLink]="['/listvoucher/formedit', voucher.voucherId]" class="btn btn-primary">editar</button>

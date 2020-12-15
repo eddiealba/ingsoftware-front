@@ -12,6 +12,7 @@ import swal from 'sweetalert2'
 export class FormComponent implements OnInit {
 
     voucher: Voucher = new Voucher()
+
     
 
     constructor(private voucherService: VoucherService,
@@ -27,6 +28,10 @@ export class FormComponent implements OnInit {
         .subscribe(json => {
                 this.router.navigate(['/voucher/listvoucher'])
                 swal.fire('Nuevo Comprobante', `${json.mensaje} # ${json.voucher.voucherId}`, 'success') 
+        },
+        err => {
+            console.error('Codigo de error desde el backend: '+err.error.errors);
+            console.error(err.error.errors);
         }
         );
     }

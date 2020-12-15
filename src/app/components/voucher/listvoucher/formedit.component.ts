@@ -36,6 +36,10 @@ export class FormeditComponent implements OnInit {
         .subscribe( json => {
             this.router.navigate(['/voucher/listvoucher'])
             swal.fire('Nuevo Comprobante', `${json.mensaje} # ${json.voucher.voucherId}`, 'success') 
+        },
+        err => {
+            console.error('Codigo de error desde el backend: '+err.error.errors);
+            console.error(err.error.errors);
         }
 
         )

@@ -1,7 +1,7 @@
 <div class="card bg-dark text-white">
     
     <div class="card-body">
-        <form (ngSubmit) = "create()">
+        <form (ngSubmit) = "create()" >
             <div class="form-group row">
                 <label for="orderId" class="col-form-label col-sm-2">ID de Orden</label>
                 <div class="col-sm-6">
@@ -27,7 +27,12 @@
             <div class="form-group row">
                 <label for="total" class="col-form-label col-sm-2">Total</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="voucher.total" name="total">
+                    <input type="text" class="form-control" [(ngModel)]="voucher.total" name="total" required #total="ngModel">
+                    <div class="alert alert-danger" *ngIf="total.invalid && (total.dirty || total.touched)">
+                        <div>
+                            EL total es requerido
+                        </div>
+                    </div>
                 </div>
             </div>
 
