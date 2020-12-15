@@ -30,6 +30,7 @@ import { VoucherService } from './components/voucher/listvoucher/voucher.service
 import { from } from 'rxjs';
 import { PaymentComponent } from './components/user/payment/payment.component';
 import { FormComponent } from './components/voucher/listvoucher/form.component';
+import { FormeditComponent } from './components/voucher/listvoucher/formedit.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { FormComponent } from './components/voucher/listvoucher/form.component';
     CartComponent,
     CatalogueComponent,
     PaymentComponent,
-    FormComponent
+    FormComponent,
+    FormeditComponent
   ],
   imports: [
     BrowserModule,

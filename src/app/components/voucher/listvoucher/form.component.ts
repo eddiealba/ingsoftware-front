@@ -19,35 +19,18 @@ export class FormComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
-        this.cargarVoucher()
-    }
-
-    cargarVoucher(): void{
-        this.activatedRoute.params.subscribe(params =>{
-            let voucherId = params ['voucherId']
-            if(voucherId){
-                this.voucherService.getVoucher(voucherId).subscribe( (voucher) => this.voucher = voucher)
-            }
-        })
+       
     }
 
     create(): void{
         this.voucherService.create(this.voucher)
-        .subscribe(voucher => {
+        .subscribe(json => {
                 this.router.navigate(['/voucher/listvoucher'])
-                swal.fire('Nuevo Comprobante', `Comprobante # ${voucher.voucherId} creado con exito`, 'success') 
+                swal.fire('Nuevo Comprobante', `${json.mensaje} # ${json.voucher.voucherId}`, 'success') 
         }
         );
     }
 
-    /*update(): void{
-        this.voucherService.update(this.voucher)
-        .subscribe( voucher => {
-            this.router.navigate(['/voucher/listvoucher'])
-            swal.fire('Comprobante Actualizado', `Comprobante # ${voucher.voucherId} actualizado con exito`, 'success') 
-        }
-
-        )
-    }*/
+   
 
 }

@@ -13,6 +13,7 @@ import { CartComponent } from './components/user/cart/cart.component';
 import { CatalogueComponent } from './components/category/catalogue/catalogue.component';
 import { PaymentComponent } from './components/user/payment/payment.component';
 import { FormComponent } from './components/voucher/listvoucher/form.component';
+import { FormeditComponent } from './components/voucher/listvoucher/formedit.component';
 
 
 
@@ -29,7 +30,8 @@ const APP_ROUTES: Routes = [
     { path: 'product/editproduct', component: EditproductComponent},
     { path: 'voucher/listvoucher', component: ListvoucherComponent},
     { path: 'listvoucher/form', component: FormComponent},
-    { path: 'listvoucher/form/:voucherId', component: FormComponent},
+    { path: 'listvoucher/formedit', component: FormeditComponent},
+    { path: 'listvoucher/formedit/:voucherId', component: FormeditComponent},
 
     { path: '**', pathMatch: 'full', redirectTo: 'category/catalogue' }//redirectTo: 'home'
 ];

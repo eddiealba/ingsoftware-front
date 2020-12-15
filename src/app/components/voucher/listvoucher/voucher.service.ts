@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
 import { Voucher } from './voucher';
 
-import { of,Observable } from 'rxjs';
+import { of,Observable, throwError } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http'; 
-import {map} from 'rxjs/operators';
+import {map, catchError} from 'rxjs/operators';
+import swal from 'sweetalert2';
+
+import {Router} from '@angular/router';
 
 
 @Injectable()
@@ -13,7 +16,7 @@ export class VoucherService{
 
     private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router:Router) { }
 
     getVocuher(): Observable<Voucher[]> {
         //return of(VOUCHERS);
@@ -22,20 +25,45 @@ export class VoucherService{
         )
     }
 
-    create(voucher: Voucher) : Observable<Voucher> {
-        return this.http.post<Voucher>(this.urlEndPoint, voucher, {headers: this.httpHeaders})
+    create(voucher: Voucher) : Observable<any> {
+        return this.http.post<any>(this.urlEndPoint, voucher, {headers: this.httpHeaders}).pipe(
+            catchError(e => {
+                console.error(e.error.mensaje);
+                swal.fire(e.error.mensaje, e.error.error, 'error');
+                return throwError(e);
+            })
+        )
     }
 
     getVoucher(voucherId: number): Observable<Voucher>{
-        return this.http.get<Voucher>(`${this.urlEndPoint}/${voucherId}`)
+        return this.http.get<Voucher>(`${this.urlEndPoint}/${voucherId}`).pipe(
+            catchError(e => {
+                this.router.navigate(['voucher/listvoucher']);
+                console.error(e.error.mensaje);
+                swal.fire('Error al editar', e.error.mensaje, 'error');
+                return throwError(e);
+            })
+        );
     }
 
-    /*update(voucher: Voucher): Observable<Voucher>{
-        return this.http.put<Voucher>(`${this.urlEndPoint}/${voucher.voucherId}`, voucher, {headers: this.httpHeaders})
-    }*/
+    update(voucher: Voucher): Observable<any>{
+        return this.http.put<any>(`${this.urlEndPoint}/${voucher.voucherId}`, voucher, {headers: this.httpHeaders}).pipe(
+            catchError(e => {
+                console.error(e.error.mensaje);
+                swal.fire(e.error.mensaje, e.error.error, 'error');
+                return throwError(e);
+            })
+        );
+    }
 
     delete(voucherId: number): Observable<Voucher>{
-        return this.http.delete<Voucher>(`${this.urlEndPoint}/${voucherId}`, {headers: this.httpHeaders})
+        return this.http.delete<Voucher>(`${this.urlEndPoint}/${voucherId}`, {headers: this.httpHeaders}).pipe(
+            catchError(e => {
+                console.error(e.error.mensaje);
+                swal.fire(e.error.mensaje, e.error.error, 'error');
+                return throwError(e);
+            })
+        );    
     }
 
 }
