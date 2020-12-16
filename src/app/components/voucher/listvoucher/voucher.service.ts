@@ -7,7 +7,7 @@ import { Voucher } from './voucher';
 
 import { of,Observable, throwError } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http'; 
-import {map, catchError} from 'rxjs/operators';
+import {map, catchError, tap} from 'rxjs/operators';
 import swal from 'sweetalert2';
 
 import {Router} from '@angular/router';
@@ -21,19 +21,22 @@ export class VoucherService{
 
     constructor(private http: HttpClient, private router:Router) { }
 
-    getVocuher(): Observable<Voucher[]> {
-        //return of(VOUCHERS);
-        return this.http.get(this.urlEndPoint).pipe(
-            map(response => {
-                let vouchers =response as Voucher[];
-                return vouchers.map(voucher =>{
-                    registerLocaleData(localeES, 'es');
-                    let datePipe = new DatePipe('es');
-                    //voucher.date = datePipe.transform(voucher.date,'EEEE d, MMM yyyy');
-                    return voucher
+    getVocuher(page: number): Observable<any[]> {
+        return this.http.get(this.urlEndPoint +'/page/' + page).pipe(
+            tap( (response: any) =>{
+                (response.content as Voucher[]).forEach(voucher => {
+                    console.log(voucher.voucherId);
                 });
-            }
-            )
+            }),
+            
+            map( (response: any) => {
+                
+                (response.content as Voucher[]).map(voucher =>{
+                    
+                return voucher;
+                });
+                return response;
+            })
         );
     }
 

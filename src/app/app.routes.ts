@@ -29,6 +29,7 @@ const APP_ROUTES: Routes = [
     { path: 'voucher/addvoucher', component: AddvoucherComponent},
     { path: 'product/editproduct', component: EditproductComponent},
     { path: 'voucher/listvoucher', component: ListvoucherComponent},
+    { path: 'voucher/listvoucher/page/:page', component: ListvoucherComponent},
     { path: 'listvoucher/form', component: FormComponent},
     { path: 'listvoucher/formedit', component: FormeditComponent},
     { path: 'listvoucher/formedit/:voucherId', component: FormeditComponent},

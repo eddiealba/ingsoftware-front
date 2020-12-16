@@ -35,6 +35,7 @@ import { VoucherService } from './components/voucher/listvoucher/voucher.service
 import { from } from 'rxjs';
 import { PaymentComponent } from './components/user/payment/payment.component';
 import { FormComponent } from './components/voucher/listvoucher/form.component';
+import {PaginatorComponent} from './components/paginator/paginator.component';
 import { FormeditComponent } from './components/voucher/listvoucher/formedit.component';
 
 
@@ -56,7 +57,8 @@ import { FormeditComponent } from './components/voucher/listvoucher/formedit.com
     CatalogueComponent,
     PaymentComponent,
     FormComponent,
-    FormeditComponent
+    FormeditComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,

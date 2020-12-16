@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { from } from 'rxjs';
 import { Voucher} from './voucher';
 import { VoucherService } from './voucher.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-listvoucher',
@@ -12,13 +13,24 @@ import Swal from 'sweetalert2'
 export class ListvoucherComponent implements OnInit {
 
   vouchers!: Voucher[];
+  paginador: any;
 
-  constructor(private voucherService: VoucherService) { }
+  constructor(private voucherService: VoucherService, 
+    private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.voucherService.getVocuher().subscribe(
-      vouchers => this.vouchers = vouchers
-    );
+  ngOnInit() {
+    
+    this.activatedRoute.paramMap.subscribe (params =>{
+      let page: number = +params.get('page');
+      if(!page){
+        page=0;
+      }
+    this.voucherService.getVocuher(page).subscribe(
+      response => {
+        this.vouchers = response.content as Voucher[];
+        this.paginador= response;
+      });
+    });
   }
 
   delete(voucher: Voucher): void{
