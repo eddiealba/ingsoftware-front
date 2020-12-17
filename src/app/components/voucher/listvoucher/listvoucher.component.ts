@@ -21,13 +21,13 @@ export class ListvoucherComponent implements OnInit {
   ngOnInit() {
     
     this.activatedRoute.paramMap.subscribe (params =>{
-      let page: number = +params.get('page');
+      let page: number = +params.get('page'); 
       if(!page){
         page=0;
       }
     this.voucherService.getVocuher(page).subscribe(
       response => {
-        this.vouchers = response.content as Voucher[];
+        this.vouchers = response.content as Voucher[]; 
         this.paginador= response;
       });
     });
