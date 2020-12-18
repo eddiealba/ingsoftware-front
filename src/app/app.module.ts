@@ -32,11 +32,17 @@ import { ListvoucherComponent } from './components/voucher/listvoucher/listvouch
 import { CartComponent } from './components/user/cart/cart.component';
 import { CatalogueComponent } from './components/category/catalogue/catalogue.component';
 import { VoucherService } from './components/voucher/listvoucher/voucher.service';
+import { ProductoService } from './productos/producto.service';
 import { from } from 'rxjs';
 import { PaymentComponent } from './components/user/payment/payment.component';
 import { FormComponent } from './components/voucher/listvoucher/form.component';
 import {PaginatorComponent} from './components/paginator/paginator.component';
+import {PaginatorpComponent} from './components/paginator/paginatorp.component';
 import { FormeditComponent } from './components/voucher/listvoucher/formedit.component';
+import { ProductosComponent } from './productos/productos.component';
+import { FormpComponent } from './productos/formp.component';
+import { FormpeditComponent } from './productos/formpedit.component';
+import { DetalleComponent } from './productos/detalle/detalle.component';
 
 
 @NgModule({
@@ -52,13 +58,23 @@ import { FormeditComponent } from './components/voucher/listvoucher/formedit.com
     AddproductComponent,
     AddvoucherComponent,
     EditproductComponent,
+    
     ListvoucherComponent,
+  
     CartComponent,
     CatalogueComponent,
     PaymentComponent,
+    
     FormComponent,
     FormeditComponent,
-    PaginatorComponent
+    FormpComponent,
+    FormpeditComponent,
+
+    
+    PaginatorComponent,
+    PaginatorpComponent,
+    ProductosComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +83,8 @@ import { FormeditComponent } from './components/voucher/listvoucher/formedit.com
     AppRoutingModule,
     APP_ROUTING
   ],
-  providers: [VoucherService, {provide: LOCALE_ID, useValue:'es'}],
+  providers: [ProductoService, VoucherService, {provide: LOCALE_ID, useValue:'es'} ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
